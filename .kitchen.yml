@@ -5,16 +5,18 @@ driver:
 provisioner:
   name: chef_zero
 
+# Default verifier is RSpec.  Uncomment the 'verifier' to use
+# the alternative InSpec.  Tests are written for both verifiers.
 verifier:
   name: inspec
 
 platforms:
   - name: ubuntu-16.04
-  - name: centos-7.2
 
 suites:
   - name: default
     run_list:
+      - recipe[jenkins_ubuntu::default]
       - recipe[my_pipeline_ubuntu::default]
     verifier:
       inspec_tests:
