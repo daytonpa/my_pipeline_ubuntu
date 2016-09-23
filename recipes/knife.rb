@@ -16,16 +16,16 @@ node['my_pipeline_ubuntu'].tap do |pipeline|
         cookbook 'my_pipeline_ubuntu'
         source 'knife.rb.erb'
         variables(
-            chef_server_url: node['my_pipeline_ubuntu']['chef_server_url']
-            client_node_name: node['my_pipeline_ubuntu']['client_node_name']
+        chef_server_url: node['my_pipeline_ubuntu']['chef_server_url'],
+        client_node_name: node['my_pipeline_ubuntu']['client_node_name']
         )
     end
 
-    file "#{node['jenkins_ubuntu']['home']}/.chef/#{pipleine['client_node_name']}.pem" do
+    file "#{node['jenkins_ubuntu']['home']}/.chef/#{pipeline['client_node_name']}.pem" do
         owner node['jenkins_ubuntu']['user']
         group node['jenkins_ubuntu']['group']
         mode '0644'
 
-        content jenkins
+        # content pipeline['pem_file']
     end
 end

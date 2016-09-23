@@ -4,6 +4,8 @@ driver:
 
 provisioner:
   name: chef_zero
+  # chef_omnibus_install_options: -P chefdk
+  # chef_omnibus_root: /opt/chefdk
 
 # Default verifier is RSpec.  Uncomment the 'verifier' to use
 # the alternative InSpec.  Tests are written for both verifiers.
