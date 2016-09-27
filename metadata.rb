@@ -14,6 +14,6 @@ version '0.1.0'
 # gets a `View Source` link
 # source_url 'https://github.com/<insert_org_here>/my_pipeline_ubuntu' if respond_to?(:source_url)
 
-%w( git chef-zero emacs sudo chef-dk ).each do |cookbook|
+%w( git chef-zero emacs sudo chef-dk pipeline jenkins ).each do |cookbook|
     depends cookbook
 end

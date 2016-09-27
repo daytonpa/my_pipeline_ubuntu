@@ -17,5 +17,5 @@ default['my_pipeline_ubuntu'].tap do |pipeline|
     # - Default plugins
     pipeline['default_plugins'] = %w( chef-identity git github github-api git-client scm-api )
     # - Extra plugins
-    pipeline['extra_plugins'] = %w( chucknorris )
+    pipeline['extra_plugins'] = %w(  role-strategy chucknorris )
 end

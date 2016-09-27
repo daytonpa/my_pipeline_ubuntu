@@ -13,8 +13,11 @@
 
 include_recipe 'my_pipeline_ubuntu::chefdk'
 include_recipe 'chef-zero'
+include_recipe 'git'
 include_recipe 'my_pipeline_ubuntu::knife'
 include_recipe 'my_pipeline_ubuntu::jenkins_cli_and_plugins'
+include_recipe 'my_pipeline_ubuntu::my_berkshelf'
+include_recipe 'my_pipeline_ubuntu::my_jobs'
 
 # include_recipe 'my_pipeline_ubuntu::my_jobs'
 
