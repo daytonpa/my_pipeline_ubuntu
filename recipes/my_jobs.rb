@@ -6,17 +6,22 @@
 
 file_cache_path = Chef::Config[:file_cache_path]
 
-%w( deploy_flix rr_install ).each do |cookbook_name|
+node['my_pipeline_ubuntu'].tap do |pipeline|
 
-	config_path = ::File.join file_cache_path, "#{cookbook_name}-config.xml"
+    pipeline['git']['cookbooks'].each do |cookbook_name|
+        config_path = ::File.join file_cache_path, "#{cookbook_name}-config.xml"
 
-	template config_path do
-    	source 'job-config.xml.erb'
-    	variables git_url: "https://github.com/daytonpa/#{cookbook_name}.git",
-			build_command: '_knife_commands.sh.erb',
-			cookbook: 'my_pipeline_ubuntu'
-	end
-	jenkins_job cookbook_name do
-    	config config_path
-	end
+        # Create a config file for the jenkins job
+        template config_path do
+            source 'job-config.xml.erb'
+    	    variables git_url: "#{pipeline['git']['url']}/#{cookbook_name}/tree/#{pipeline['git']['branch']}",
+			    build_command: '_knife_commands.sh.erb',
+			    cookbook: 'my_pipeline_ubuntu'
+	    end
+
+        jenkins_job cookbook_name do
+    	    config config_path
+            url "http://#{node['jenkins_ubuntu']['listen_address']}:#{node['jenkins_ubuntu']['listen_port']}"
+	    end
+    end
 end

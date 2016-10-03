@@ -2,4 +2,6 @@ source 'https://supermarket.chef.io'
 
 metadata
 
-cookbook 'jenkins_ubuntu', git: 'git://github.com/daytonpa/jenkins_ubuntu.git'
+%w( jenkins_ubuntu rr_install deploy_flix ).each do |my_books|
+    cookbook my_books, git: "git://github.com/daytonpa/#{my_books}.git"
+end

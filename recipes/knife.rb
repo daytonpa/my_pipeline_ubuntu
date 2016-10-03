@@ -1,5 +1,8 @@
+
+chef_directory = "#{node['jenkins_ubuntu']['home']}/.chef"
+
 # Create the .chef directory
-directory "#{node['jenkins_ubuntu']['home']}/.chef" do
+directory chef_directory do
     owner node['jenkins_ubuntu']['user']
     group node['jenkins_ubuntu']['group']
     mode '0755'
@@ -8,20 +11,20 @@ end
 
 # Create a knife and pem file for your
 node['my_pipeline_ubuntu'].tap do |pipeline|
-    template "#{node['jenkins_ubuntu']['home']}/.chef/knife.rb" do
+    template "#{chef_directory}/knife.rb" do
         owner node['jenkins_ubuntu']['user']
         group node['jenkins_ubuntu']['group']
         mode '0644'
 
         cookbook 'my_pipeline_ubuntu'
         source 'knife.rb.erb'
-        variables(
-        chef_server_url: node['my_pipeline_ubuntu']['chef_server_url'],
-        client_node_name: node['my_pipeline_ubuntu']['client_node_name']
-        )
+        # variables(
+        # chef_server_url: node['my_pipeline_ubuntu']['chef_server_url'],
+        # client_node_name: node['my_pipeline_ubuntu']['client_node_name']
+        # )
     end
 
-    file "#{node['jenkins_ubuntu']['home']}/.chef/#{pipeline['client_node_name']}.pem" do
+    file "#{chef_directory}/deploy_flix.pem" do
         owner node['jenkins_ubuntu']['user']
         group node['jenkins_ubuntu']['group']
         mode '0644'
